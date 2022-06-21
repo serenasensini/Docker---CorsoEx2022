@@ -1,0 +1,5 @@
+FROM nginx
+COPY content /usr/share/nginx/html
+COPY conf /etc/nginx
+EXPOSE 8080
+ENTRYPOINT ["nginx", "-g", "daemon off"]
