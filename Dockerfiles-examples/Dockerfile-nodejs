@@ -1,0 +1,8 @@
+FROM node:13
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 8080
+ENTRYPOINT echo “Il container si sta avviando...”
+CMD [ "node", "server.js" ]
