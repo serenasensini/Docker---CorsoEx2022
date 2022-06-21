@@ -1,0 +1,20 @@
+FROM golang:latest as builder
+LABEL Jessica Frazelle <jess@linux.com>
+ENV PATH /go/bin:/usr/local/go/bin:$PATH
+RUN apt-get update && apt-get install -y \
+	apt-transport-https \
+	ca-certificates \
+	curl \
+    --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/* \
+	&& curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+	&& echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+ENV NOMAD_VERSION v0.11.2
+RUN go get github.com/hashicorp/nomad
+WORKDIR /go/src/github.com/hashicorp/nomad
+RUN git checkout "${NOMAD_VERSION}"
+…
+COPY --from=builder /usr/bin/nomad /usr/bin/nomad
+COPY --from=builder /etc/ssl/certs/ /etc/ssl/certs
+ENTRYPOINT [ "nomad" ]
+CMD [ "--help" ]
