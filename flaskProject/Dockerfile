@@ -1,8 +1,17 @@
-FROM python:3.6
+FROM python:3.8-slim-buster
+
 LABEL maintainer="serena.sensini@gmail.com"
-COPY . /app
+
 WORKDIR /app
+
+COPY requirements.txt requirements.txt
+
 RUN pip install -r requirements.txt
-EXPOSE 8080
+
+COPY . .
+
+#EXPOSE 5000
+
 ENTRYPOINT ["python"]
-CMD ["app/app.py"]
+
+CMD ["-m" , "flask", "run", "--host=0.0.0.0"]
