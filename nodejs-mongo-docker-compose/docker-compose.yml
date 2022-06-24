@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+    nodejs:
+        build:
+          context: .
+          dockerfile: Dockerfile
+        image: nodejs
+        container_name: nodejs
+        restart: unless-stopped
+        environment:
+          - MONGO_USERNAME=myuser
+          - MONGO_PASSWORD=password
+          - MONGO_HOSTNAME=db
+          - MONGO_PORT=27017
+          - MONGO_DB=fruits
+        ports:
+          - "8080:8080"
+        volumes:
+          - .:/home/node/app
+          - node_modules:/home/node/app/node_modules
+        networks:
+          - mynetwork
+        command: sh wait.sh db:27017 -- /home/node/app/node_modules/.bin/nodemon app.js
+    db:
+        image: mongo:4.1.8-xenial
+        container_name: db
+        restart: unless-stopped
+        ports:
+          - "27017:27017"
+#        env_file: .env
+        environment:
+          - MONGO_INITDB_ROOT_USERNAME=myuser
+          - MONGO_INITDB_ROOT_PASSWORD=password
+        volumes:
+          - dbdata:/data/db
+        networks:
+          -  mynetwork 
+networks:
+   mynetwork:
+     driver: bridge
+
+volumes:
+   dbdata:
+     driver: local
+   node_modules:
+     driver: local
+

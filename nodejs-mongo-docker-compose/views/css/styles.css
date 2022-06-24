@@ -1,0 +1,63 @@
+.navbar {
+    margin-bottom: 0;
+    background: #0b9999;
+}
+
+body {
+    background: #f1f2f3;
+    color: #000000;
+    font-family: 'Merriweather', sans-serif;
+}
+
+h1,
+h2 {
+    font-weight: bold;
+}
+
+p {
+    font-size: 16px;
+    color: #000000;
+}
+
+.jumbotron {
+    background: #4b8d5d;
+    color: #ffffff;
+    text-align: center;
+}
+
+.jumbotron p {
+    color: #000000;
+    font-size: 26px;
+}
+
+.btn-primary {
+    color: #000000;
+    text-color: #000000;
+    border-color: white;
+    margin-bottom: 5px;
+}
+
+img,
+video,
+audio {
+    margin-top: 20px;
+    max-width: 50%;
+}
+
+div.caption{
+    float: left;
+    clear: both;
+}
+
+button{
+    background-color: #0b9999 !important;
+    color: white !important;
+}
+
+.container{
+    padding: 1em;
+}
+
+.navbar.container{
+    padding: 0;
+}
